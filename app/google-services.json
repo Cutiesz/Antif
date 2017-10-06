@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "647659614285",
+    "project_id": "firebase-antif"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647659614285:android:bc35228e28ac0ac7",
+        "android_client_info": {
+          "package_name": "com.korsolution.antif"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647659614285-90jtmoacpuk1s4qpijhakbn2n9daiegs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.korsolution.antif",
+            "certificate_hash": "695459c54169a35c1b6303b066f6c4b76976f5db"
+          }
+        },
+        {
+          "client_id": "647659614285-vm78t8tlsc3ij307s7d0pf3pb44roq5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-vCH7UgkW691i0ykJzaMARX2tN8Gfw2M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">Antif</string>
+
+    <string name="txt_email">EMAIL</string>
+    <string name="txt_password">PASSWORD</string>
+    <string name="hint_email">Enter Email</string>
+    <string name="hint_password">Enrer Password</string>
+    <string name="signup">SIGN UP</string>
+    <string name="title_activity_main_page">MainPageActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="action_login">Log in</string>
+    <string name="action_logout">Log out</string>
+    <string name="action_addcar">Add Car</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_feed">Feed News</string>
+    <string name="action_noti">Notification</string>
+    <string name="action_vehicle_setting">Vehicle Setting</string>
+    <string name="action_camera">Camera</string>
+
+    <string name="select_car">SELECT CAR</string>
+
+    <!-- Facebook App ID -->
+    <string name="facebook_app_id">448673542130905</string>
+
+    <!-- Google string test -->
+    <string name="signed_in_fmt">Signed in as: %s</string>
+
+    <!-- Album Picture Name -->
+    <string name="album_name">Antif Parking</string>
+    <string name="album_name_add_car">Antif Car</string>
+    <string name="album_name_profile">Antif Profile</string>
+
+    <string name="all_fields">All fields are required.</string>
+    <string name="txt_confirm_pass">CONFIRM PASSWORD</string>
+    <string name="txt_display_name">DISPLAY NAME</string>
+    <string name="txt_tel">TELEPHONE NUMBER</string>
+    <string name="hint_confirm_pass">Enter Confirm Password</string>
+    <string name="hint_display_name">Enter Display Name</string>
+    <string name="hint_tel">Enter Telephone Number</string>
+    <string name="sign_up_fail">SIGN UP FAIL!!</string>
+
+    <string name="str_ok">OK</string>
+    <string name="reset">RESET</string>
+    <string name="take_photo">TAKE A PHOTO</string>
+    <string name="txt_parking">PARKING PHOTO</string>
+    <string name="hint_parking">Enter Parking Details</string>
+    <string name="txt_parking_datetime">Parking Date Time</string>
+
+    <string name="txt_id_card">ID CARD</string>
+    <string name="txt_license_exp">LICENSE EXP</string>
+    <string name="txt_address">ADDRESS</string>
+    <string name="txt_district">DISTRICT</string>
+    <string name="txt_amphur">AMPHUR</string>
+    <string name="txt_province">PROVINCE</string>
+    <string name="txt_postcode">POSTCODE</string>
+
+    <string name="txt_profile">PROFILE</string>
+
+    <string name="txt_first_name">FIRST NAME</string>
+    <string name="txt_last_name">LAST NAME</string>
+    <string name="hint_first_name">Enter First Name</string>
+    <string name="hint_last_name">Enter Last Name</string>
+    <string name="hint_id_card">Enter ID Card</string>
+    <string name="hint_license_exp">Enter License EXP</string>
+    <string name="hint_address">Enter Address</string>
+    <string name="hint_postcode">Enter Postcode</string>
+
+    <string name="feed_news">FEED NEWS</string>
+    <string name="no_data">NO DATA!!</string>
+    <string name="share_car_lost">แชร์รถหาย</string>
+    <string name="txt_data">ข้อมูล : </string>
+    <string name="write_comment">Write a comment...</string>
+    <string name="txt_comment">COMMENT</string>
+    <string name="hint_share_feed">Enter your feed..</string>
+
+    <string name="txt_noti">NOTIFICATION</string>
+    <string name="title_activity_navi_drawer">NaviDrawerActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="hint_parking_detail">Enter parking details.</string>
+
+    <string name="txt_select_vehicle">SELECT VEHICLE</string>
+
+</resources>

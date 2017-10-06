@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Import" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slideshow" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tools" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item> -->
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_refresh"
+            android:icon="@drawable/ic_action_autorenew"
+            android:title="@string/action_refresh" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_action_account_circle"
+            android:title="@string/action_profile" />
+        <item
+            android:id="@+id/nav_add_car"
+            android:icon="@drawable/ic_action_add_car"
+            android:title="@string/action_addcar" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_action_build"
+            android:title="@string/action_vehicle_setting" />
+    </group>
+
+    <item android:title="Notification">
+        <menu>
+            <item
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_action_notifications"
+                android:title="@string/action_noti" />
+        </menu>
+    </item>
+
+    <item android:title="Feed">
+        <menu>
+            <item
+                android:id="@+id/nav_feed_news"
+                android:icon="@drawable/ic_action_comment"
+                android:title="@string/action_feed" />
+        </menu>
+    </item>
+
+    <item android:title="Log out">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_action_power_settings_new"
+                android:title="@string/action_logout" />
+        </menu>
+    </item>
+
+</menu>

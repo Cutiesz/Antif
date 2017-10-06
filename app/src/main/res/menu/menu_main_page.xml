@@ -1,0 +1,95 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.korsolution.antif.MainPageActivity">
+    <!-- <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" /> -->
+
+    <!--<item
+        android:id="@+id/action_addcar"
+        android:orderInCategory="100"
+        android:title="@string/action_addcar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:title="@string/action_profile"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_login"
+        android:orderInCategory="100"
+        android:title="@string/action_login"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
+        app:showAsAction="never" />-->
+
+    <item
+        android:id="@+id/action_noti"
+        android:icon="@drawable/ic_noti"
+        app:actionLayout="@layout/feed_update_count_img"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Notification" />
+
+    <!-- More -->
+    <item
+        android:id="@+id/a_More"
+        android:icon="@drawable/ic_action_more_vert"
+        android:orderInCategory="101"
+        app:showAsAction="always"
+        android:title="More">
+        <menu>
+
+            <!-- Refresh -->
+            <item
+                android:id="@+id/action_refresh"
+                android:icon="@drawable/ic_action_autorenew"
+                app:showAsAction="never"
+                android:title="@string/action_refresh"/>
+
+            <!-- Notification -->
+            <item
+                android:id="@+id/action_notification"
+                android:icon="@drawable/ic_action_notifications"
+                app:showAsAction="never"
+                android:title="@string/action_noti"/>
+
+            <!-- Feed News -->
+            <item
+                android:id="@+id/action_feed_news"
+                android:icon="@drawable/ic_action_comment"
+                app:showAsAction="never"
+                android:title="@string/action_feed"/>
+
+            <!-- Add Car -->
+            <item
+                android:id="@+id/action_addcar"
+                android:icon="@drawable/ic_action_add_car"
+                app:showAsAction="never"
+                android:title="@string/action_addcar"/>
+
+            <!-- Profile -->
+            <item
+                android:id="@+id/action_profile"
+                android:icon="@drawable/ic_action_account_circle"
+                app:showAsAction="never"
+                android:title="@string/action_profile"/>
+
+            <!-- Logout -->
+            <item
+                android:id="@+id/action_logout"
+                android:icon="@drawable/ic_action_logout"
+                app:showAsAction="never"
+                android:title="@string/action_logout"/>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:gravity="center" >
+
+    <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="my Title"
+        android:textColor="#ffffff"
+        android:id="@+id/mytext"
+        android:textSize="18sp" /> -->
+
+    <!-- <ImageView
+        android:id="@+id/imgMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="menuGroup"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/menugroup"/> -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/antif"/>
+    </LinearLayout>
+
+    <!-- <ImageView
+        android:id="@+id/imgShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:onClick="shoppingCart"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_action_shopping"/>
+
+    <TextView
+        android:id="@+id/txtNumberProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/imgShop"
+        android:layout_alignTop="@id/imgShop"
+        android:background="@drawable/badge_circle"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:text="10"
+        android:textColor="#FFF"
+        android:textSize="8dp"
+        android:textStyle="bold" /> -->
+
+    <!-- <ImageView
+        android:id="@+id/imgSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:onClick="menuGroup"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/menugroup"/> -->
+
+</RelativeLayout>

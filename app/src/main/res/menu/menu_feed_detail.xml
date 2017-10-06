@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.korsolution.antif.MainPageActivity">
+
+    <item
+        android:id="@+id/action_tracking"
+        android:icon="@drawable/marker_white"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Tracking" />
+</menu>
