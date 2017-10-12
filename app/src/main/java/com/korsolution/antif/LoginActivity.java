@@ -3,16 +3,15 @@ package com.korsolution.antif;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -52,7 +50,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -111,8 +108,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setupWidgets();
 
-        //edtEmail.setText("test02@kontin.net");
-        //edtPassword.setText("1234");
+        //User : noom_gtt@hotmail.com  Pass : 123456
+        //User : test03@kontin.net  Pass : 1234
+        //User : test02@kontin.net  Pass : 1234
+        //edtEmail.setText("noom_gtt@hotmail.com");
+        //edtPassword.setText("123456");
         //login("test01@kontin.net", "", "FB");
 
         // Facebook Login Button

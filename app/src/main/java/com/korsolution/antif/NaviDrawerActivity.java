@@ -1558,6 +1558,8 @@ public class NaviDrawerActivity extends AppCompatActivity
                                     .load(R.drawable.red_circle)
                                     .into(imgStatusAuthen);
                         }
+
+                        loadNumberOnline();
                     }
 
 
