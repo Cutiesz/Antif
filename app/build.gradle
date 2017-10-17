@@ -7,8 +7,8 @@ android {
         applicationId "com.korsolution.antif"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 19
-        versionName "1.0019"
+        versionCode 20
+        versionName "1.0020"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

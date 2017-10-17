@@ -23,11 +23,9 @@ import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,13 +41,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONObject;
 
@@ -61,8 +56,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
-import static android.R.attr.radius;
 
 
 /**
@@ -478,6 +471,42 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                 case "FALSE":
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         txtStatusUpdate.setBackground( getResources().getDrawable(R.drawable.badge_circle));
+                    }
+                    break;
+            }
+
+            switch (_IS_CUT_ENGINE) {
+                case "1":   // ตัด
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        imgCutEngine.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_background_red));
+                    }
+                    break;
+                case "0":   // ต่อ
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        imgCutEngine.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_background_gray));
+                    }
+                    break;
+                default:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        imgCutEngine.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_background_gray));
+                    }
+                    break;
+            }
+
+            switch (_IS_AUTHEN) {
+                case "true":   // ตัด
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        imgAuthen.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_background_blue));
+                    }
+                    break;
+                case "false":   // ต่อ
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        imgAuthen.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_background_gray));
+                    }
+                    break;
+                default:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        imgAuthen.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_background_gray));
                     }
                     break;
             }
