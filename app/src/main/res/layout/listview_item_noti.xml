@@ -9,22 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         android:background="@color/transparent1">
 
         <ImageView
             android:id="@+id/imgMapStatic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/blank_img" />
 
-
-
         <RelativeLayout
             android:id="@+id/layoutDetail1"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
             android:orientation="horizontal"

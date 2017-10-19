@@ -108,10 +108,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setupWidgets();
 
-        //User : noom_gtt@hotmail.com  Pass : 123456
-        //User : test03@kontin.net  Pass : 1234
-        //User : test02@kontin.net  Pass : 1234
-        //edtEmail.setText("noom_gtt@hotmail.com");
+        // User : poom@hotmail.com  Pass : 123456
+        // User : noom_gtt@hotmail.com  Pass : 123456
+        // User : test03@kontin.net  Pass : 1234
+        // User : test02@kontin.net  Pass : 1234
+        //edtEmail.setText("poom@hotmail.com");
         //edtPassword.setText("123456");
         //login("test01@kontin.net", "", "FB");
 

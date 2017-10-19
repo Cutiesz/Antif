@@ -45,6 +45,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONObject;
 
@@ -445,21 +446,46 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .into(imgVehicle);
 
-            if (_STATUS.equals("1")) {
-                txtStatus.setTextColor(Color.parseColor("#04B404"));
-                txtStatus.setText("รถวิ่ง");
-            } else if (_STATUS.equals("2")) {
-                txtStatus.setTextColor(Color.parseColor("#FFFF00"));
-                txtStatus.setText("จอดรถติดเครื่อง");
-            } else if (_STATUS.equals("3")) {
-                txtStatus.setTextColor(Color.parseColor("#A4A4A4"));
-                txtStatus.setText("จอดดับเครื่อง");
-            } else if (_STATUS.equals("4")) {
-                txtStatus.setTextColor(Color.parseColor("#4000FF"));
-                txtStatus.setText("ความเร็วเกิน");
-            } else  if (_STATUS.equals("0")) {
-                txtStatus.setTextColor(Color.parseColor("#4000FF"));
-                txtStatus.setText("เคลื่อนที่ขณะดับเครื่อง");
+            switch (_VEHICLE_TYPE_NAME) {
+                case "รถยนต์":
+                    if (_STATUS.equals("1")) {
+                        txtStatus.setTextColor(Color.parseColor("#04B404"));
+                        txtStatus.setText("รถวิ่ง");
+                    } else if (_STATUS.equals("2")) {
+                        txtStatus.setTextColor(Color.parseColor("#FFFF00"));
+                        txtStatus.setText("จอดรถติดเครื่อง");
+                    } else if (_STATUS.equals("3")) {
+                        txtStatus.setTextColor(Color.parseColor("#A4A4A4"));
+                        txtStatus.setText("จอดดับเครื่อง");
+                    } else if (_STATUS.equals("4")) {
+                        txtStatus.setTextColor(Color.parseColor("#4000FF"));
+                        txtStatus.setText("ความเร็วเกิน");
+                    } else  if (_STATUS.equals("0")) {
+                        txtStatus.setTextColor(Color.parseColor("#4000FF"));
+                        txtStatus.setText("เคลื่อนที่ขณะดับเครื่อง");
+                    }
+                    break;
+                case "รถจักรยานยนต์":
+                    if (_STATUS.equals("5")) {
+                        txtStatus.setTextColor(Color.parseColor("#04B404"));
+                        txtStatus.setText("มีการขับรถหรือจอดติดไฟแดง");
+                    } else if (_STATUS.equals("4")) {
+                        txtStatus.setTextColor(Color.parseColor("#FFFF00"));
+                        txtStatus.setText("จอดอยู่แล้วมีคนมากระแทก");
+                    } else if (_STATUS.equals("3")) {
+                        txtStatus.setTextColor(Color.parseColor("#FF0000"));
+                        txtStatus.setText("อุบัติเหตุ");
+                    } else if (_STATUS.equals("2")) {
+                        txtStatus.setTextColor(Color.parseColor("#4000FF"));
+                        txtStatus.setText("จอดรถแล้วมีการโยกหรือขยับเล็กน้อย");
+                    } else if (_STATUS.equals("1")) {
+                        txtStatus.setTextColor(Color.parseColor("#FF9300"));
+                        txtStatus.setText("ไฟจากแบตเตอรี่รถหมดหรือต่ำกว่าที่กำหนด กำลังใช้แบตสำรองในตัว");
+                    } else  if (_STATUS.equals("0")) {
+                        txtStatus.setTextColor(Color.parseColor("#A4A4A4"));
+                        txtStatus.setText("มีการเคลื่อนที่รถ");
+                    }
+                    break;
             }
 
             switch (_STATUS_UPDATE) {
@@ -699,7 +725,15 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                         String[] day = separated[2].split("T");
                         String dateTime = day[0] + "/" + separated[1] + "/" + separated[0] + " " + day[1];
 
-                        vehicleName = _VEHICLE_NAME;
+                        //vehicleName = _VEHICLE_NAME;
+
+                        String vehicleSelected = Prefs.getString("VehicleSelected","");
+                        if (vehicleSelected.equals("")) {
+                            vehicleName = _VEHICLE_NAME;
+                            Prefs.putString("VehicleSelected", _VEHICLE_NAME);
+                        } else {
+                            vehicleName = vehicleSelected;
+                        }
 
                         txtVehicleName.setText(_VEHICLE_NAME);
                         txtVehicleLocation.setText(_PLACE);
@@ -870,6 +904,8 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                             //Toast.makeText(getActivity().getApplicationContext(), strVEHICLE_NAME, Toast.LENGTH_LONG).show();
 
                             appLog.setLog("MyCarFragment", "เลือกรถ " + strVEHICLE_NAME, USER_ID);
+
+                            Prefs.putString("VehicleSelected", strVEHICLE_NAME);
 
                             vehicleName = strVEHICLE_NAME;
                             IMEI = strIMEI;
@@ -1550,9 +1586,15 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay!
-                    if (ActivityCompat.checkSelfPermission(getActivity(),
-                            android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // check permission location
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        //User has previously accepted this permission
+                        if (ActivityCompat.checkSelfPermission(getActivity(),
+                                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            mMap.setMyLocationEnabled(true);
+                        }
+                    } else {
+                        //Not in api-23, no need to prompt
                         mMap.setMyLocationEnabled(true);
                     }
                 } else {
