@@ -474,7 +474,7 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                         txtStatus.setText("จอดอยู่แล้วมีคนมากระแทก");
                     } else if (_STATUS.equals("3")) {
                         txtStatus.setTextColor(Color.parseColor("#FF0000"));
-                        txtStatus.setText("อุบัติเหตุ");
+                        txtStatus.setText("เหตุไม่คาดคิด");
                     } else if (_STATUS.equals("2")) {
                         txtStatus.setTextColor(Color.parseColor("#4000FF"));
                         txtStatus.setText("จอดรถแล้วมีการโยกหรือขยับเล็กน้อย");
