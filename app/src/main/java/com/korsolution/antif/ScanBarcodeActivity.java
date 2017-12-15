@@ -224,9 +224,16 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                             String strSTATUS = String.valueOf(feedDataList.get(i).getString("STATUS"));
                             String strIMEI = String.valueOf(feedDataList.get(i).getString("IMEI"));
 
-                            if (strSTATUS.equals("USED")) {
+                            if (strSTATUS.equals("READY")) {
+                                appLog.setLog("AddCarActivity", "Scan Barcode " + _barcode + " (IMEI " + strIMEI + ") success.", USER_ID);
 
-                                if (strIMEI.length() > 0) {
+                                Intent intent = new Intent(getApplicationContext(), AddCarPictureActivity.class);
+                                intent.putExtra("USER_ID", USER_ID);
+                                intent.putExtra("IMEI", strIMEI);
+                                startActivity(intent);
+                            } else if (strSTATUS.equals("USED")) {
+
+                                /*if (strIMEI.length() > 0) {
                                     appLog.setLog("ScanBarcodeActivity", "Scan Barcode " + _barcode + " (IMEI " + strIMEI + ") success.", USER_ID);
 
                                     Intent intent = new Intent(getApplicationContext(), VehicleSettingActivity.class);
@@ -237,7 +244,9 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                                     appLog.setLog("ScanBarcodeActivity", "Barcode " + _barcode + " ถูกใช้ไปแล้ว", USER_ID);
 
                                     dialogAlertScanBarcodeUsed();
-                                }
+                                }*/
+
+                                dialogAlertScanBarcodeUsed();
 
                             } else if (strSTATUS.equals("CLOSE")) {
                                 appLog.setLog("ScanBarcodeActivity", "Barcode " + _barcode + " ไม่ถูกต้อง", USER_ID);

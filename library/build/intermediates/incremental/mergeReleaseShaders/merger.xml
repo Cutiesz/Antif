@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\workshop_studio\Antif\library\src\main\shaders"/></dataSet><dataSet config="release"><source path="D:\workshop_studio\Antif\library\src\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Users\KOR\AndroidStudioProjects\Antif\library\src\main\shaders"/></dataSet><dataSet config="release"><source path="C:\Users\KOR\AndroidStudioProjects\Antif\library\src\release\shaders"/></dataSet></merger>

@@ -44,6 +44,7 @@ public class AddCarPictureActivity extends AppCompatActivity {
     private String photoSelect = "Front";
 
     private PicturePathDBClass PicturePathDB;
+    private PictureNameDBClass PictureNameDB;
 
     private StepsView mStepsView;
 
@@ -76,6 +77,10 @@ public class AddCarPictureActivity extends AppCompatActivity {
         PicturePathDB = new PicturePathDBClass(this);
         PicturePathDB.Delete();
         PicturePathDB.Insert("0", "0", "0", "0", "0");
+
+        PictureNameDB = new PictureNameDBClass(this);
+        PictureNameDB.Delete();
+        PictureNameDB.Insert("0", "0", "0", "0", "0");
 
         appLog = new AppLogClass(this);
 
@@ -175,16 +180,28 @@ public class AddCarPictureActivity extends AppCompatActivity {
 
                     if (!_font.equals("0")) {
 
-                        appLog.setLog("AddCarPictureActivity", "กดปุ่ม Next", USER_ID);
+                        String[][] arrDataName = PictureNameDB.SelectAll();
+                        if (arrDataName != null) {
+                            String _fontName = arrDataName[0][1].toString();
+                            String _backName = arrDataName[0][2].toString();
+                            String _leftName = arrDataName[0][3].toString();
+                            String _rightName = arrDataName[0][4].toString();
 
-                        Intent intent = new Intent(getApplicationContext(), AddCarNumberActivity.class);
-                        intent.putExtra("USER_ID", USER_ID);
-                        intent.putExtra("IMEI", IMEI);
-                        intent.putExtra("URI_CAR_FRONT", _font);
-                        intent.putExtra("URI_CAR_BACK", _back);
-                        intent.putExtra("URI_CAR_LEFT", _left);
-                        intent.putExtra("URI_CAR_RIGHT", _right);
-                        startActivity(intent);
+                            appLog.setLog("AddCarPictureActivity", "กดปุ่ม Next", USER_ID);
+
+                            Intent intent = new Intent(getApplicationContext(), AddCarNumberActivity.class);
+                            intent.putExtra("USER_ID", USER_ID);
+                            intent.putExtra("IMEI", IMEI);
+                            intent.putExtra("URI_CAR_FRONT", _font);
+                            intent.putExtra("URI_CAR_BACK", _back);
+                            intent.putExtra("URI_CAR_LEFT", _left);
+                            intent.putExtra("URI_CAR_RIGHT", _right);
+                            intent.putExtra("NAME_CAR_FRONT", _fontName);
+                            intent.putExtra("NAME_CAR_BACK", _backName);
+                            intent.putExtra("NAME_CAR_LEFT", _leftName);
+                            intent.putExtra("NAME_CAR_RIGHT", _rightName);
+                            startActivity(intent);
+                        }
 
                     } else {
                         Toast.makeText(getApplicationContext(), "ถ่ายรูปหน้ารถ!!", Toast.LENGTH_LONG).show();
@@ -353,6 +370,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
 
                 PicturePathDB.UpdateDataFront(contentUri.getPath(), "0");
 
+                PictureNameDB.UpdateDataFront(filename, "0");
+
                 break;
             case "Back":
 
@@ -363,6 +382,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
                         .into(imgCarBack);
 
                 PicturePathDB.UpdateDataBack(contentUri.getPath(), "0");
+
+                PictureNameDB.UpdateDataBack(filename, "0");
 
                 break;
             case "Left":
@@ -375,6 +396,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
 
                 PicturePathDB.UpdateDataLeft(contentUri.getPath(), "0");
 
+                PictureNameDB.UpdateDataLeft(filename, "0");
+
                 break;
             case "Right":
 
@@ -385,6 +408,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
                         .into(imgCarRight);
 
                 PicturePathDB.UpdateDataRight(contentUri.getPath(), "0");
+
+                PictureNameDB.UpdateDataRight(filename, "0");
 
                 break;
         }
@@ -421,6 +446,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
 
                             PicturePathDB.UpdateDataFront(selectedImagePath, "0");
 
+                            PictureNameDB.UpdateDataFront(filename, "0");
+
                             break;
                         case "Back":
 
@@ -431,6 +458,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
                                     .into(imgCarBack);
 
                             PicturePathDB.UpdateDataBack(selectedImagePath, "0");
+
+                            PictureNameDB.UpdateDataBack(filename, "0");
 
                             break;
                         case "Left":
@@ -443,6 +472,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
 
                             PicturePathDB.UpdateDataLeft(selectedImagePath, "0");
 
+                            PictureNameDB.UpdateDataLeft(filename, "0");
+
                             break;
                         case "Right":
 
@@ -453,6 +484,8 @@ public class AddCarPictureActivity extends AppCompatActivity {
                                     .into(imgCarRight);
 
                             PicturePathDB.UpdateDataRight(selectedImagePath, "0");
+
+                            PictureNameDB.UpdateDataRight(filename, "0");
 
                             break;
                     }

@@ -55,6 +55,10 @@ public class AddCarDetailActivity extends AppCompatActivity {
     private String URI_CAR_BACK;
     private String URI_CAR_LEFT;
     private String URI_CAR_RIGHT;
+    private String NAME_CAR_FRONT;
+    private String NAME_CAR_BACK;
+    private String NAME_CAR_LEFT;
+    private String NAME_CAR_RIGHT;
     private String EMERGENCY_NUMBER_1;
     private String EMERGENCY_NUMBER_2;
     private String EMERGENCY_NUMBER_3;
@@ -67,6 +71,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
     protected ArrayList<JSONObject> feedDataListVehicleBrand;
     protected ArrayList<JSONObject> feedDataListVehicleColor;
     protected ArrayList<JSONObject> feedDataListSetVehicle;
+    protected ArrayList<JSONObject> feedDataListSetVehicleImage;
 
     private AccountDBClass AccountDB;
 
@@ -75,6 +80,8 @@ public class AddCarDetailActivity extends AppCompatActivity {
     private String USER_ID;
 
     private AppLogClass appLog;
+
+    private PicturePathDBClass PicturePathDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +98,10 @@ public class AddCarDetailActivity extends AppCompatActivity {
         URI_CAR_BACK = getIntent().getStringExtra("URI_CAR_BACK");
         URI_CAR_LEFT = getIntent().getStringExtra("URI_CAR_LEFT");
         URI_CAR_RIGHT = getIntent().getStringExtra("URI_CAR_RIGHT");
+        NAME_CAR_FRONT = getIntent().getStringExtra("NAME_CAR_FRONT");
+        NAME_CAR_BACK = getIntent().getStringExtra("NAME_CAR_BACK");
+        NAME_CAR_LEFT = getIntent().getStringExtra("NAME_CAR_LEFT");
+        NAME_CAR_RIGHT = getIntent().getStringExtra("NAME_CAR_RIGHT");
         EMERGENCY_NUMBER_1 = getIntent().getStringExtra("EMERGENCY_NUMBER_1");
         EMERGENCY_NUMBER_2 = getIntent().getStringExtra("EMERGENCY_NUMBER_2");
         EMERGENCY_NUMBER_3 = getIntent().getStringExtra("EMERGENCY_NUMBER_3");
@@ -102,6 +113,8 @@ public class AddCarDetailActivity extends AppCompatActivity {
         AccountDB = new AccountDBClass(this);
 
         appLog = new AppLogClass(this);
+
+        PicturePathDB = new PicturePathDBClass(this);
 
         setupWidgets();
 
@@ -159,15 +172,15 @@ public class AddCarDetailActivity extends AppCompatActivity {
 
                 if (_vehicleName.length() > 0) {
 
-                    if (_vehicleType.equals("Select Vehicle Type")) {
+                    if (!_vehicleType.equals("Select Vehicle Type")) {
 
-                        if (_vehicleBrand.equals("Select Vehicle Brand")) {
+                        if (!_vehicleBrand.equals("Select Vehicle Brand")) {
 
                             if (_vehicleModel.length() > 0) {
 
                                 if (_vehicleColor.length() > 0) {
 
-                                    if (_vehicleYear.equals("Select Vehicle Year")) {
+                                    if (!_vehicleYear.equals("Select Vehicle Year")) {
 
                                         if (isOnline()) {
                                             appLog.setLog("AddCarDetailActivity", "กดปุ่ม Finish", USER_ID);
@@ -316,9 +329,46 @@ public class AddCarDetailActivity extends AppCompatActivity {
         if (arrData != null) {
             String _USER_ID = arrData[0][1].toString();
 
+            int imgCount = 0;
+            String[][] arrDataPicturePath = PicturePathDB.SelectAll();
+            if (arrDataPicturePath != null) {
+                String _font = arrDataPicturePath[0][1].toString();
+                String _back = arrDataPicturePath[0][2].toString();
+                String _left = arrDataPicturePath[0][3].toString();
+                String _right = arrDataPicturePath[0][4].toString();
+
+                if (!_font.equals("0")) imgCount += 1;
+                if (!_back.equals("0")) imgCount += 1;
+                if (!_left.equals("0")) imgCount += 1;
+                if (!_right.equals("0")) imgCount += 1;
+
+                for (int i = 0; i <= imgCount; i++) {
+
+                    switch (i) {
+                        case 1:
+                            new FeedAsynTaskSetVehicleImage().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_UPLOAD_IMAGE_CAR", imgStr1, IMEI, "1");
+                            break;
+                        case 2:
+                            new FeedAsynTaskSetVehicleImage().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_UPLOAD_IMAGE_CAR", imgStr2, IMEI, "2");
+                            break;
+                        case 3:
+                            new FeedAsynTaskSetVehicleImage().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_UPLOAD_IMAGE_CAR", imgStr3, IMEI, "3");
+                            break;
+                        case 4:
+                            new FeedAsynTaskSetVehicleImage().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_UPLOAD_IMAGE_CAR", imgStr4, IMEI, "4");
+                            break;
+                    }
+                }
+            }
+
+            String imgName1 = IMEI + "_1.jpg";
+            String imgName2 = IMEI + "_2.jpg";
+            String imgName3 = IMEI + "_3.jpg";
+            String imgName4 = IMEI + "_4.jpg";
+
             new FeedAsynTaskSetVehicle().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_VEHICLE", "LYd162fYt",
                     _vehicleName, _vehicleTypeID, _vehicleBrandID, _vehicleModel, _vehicleColor, _vehicleYear, _USER_ID,
-                    EMERGENCY_NUMBER_1, EMERGENCY_NUMBER_2, EMERGENCY_NUMBER_3, imgStr1, imgStr2, imgStr3, imgStr4, DateTime_Current_Internet, _USER_ID, IMEI);
+                    EMERGENCY_NUMBER_1, EMERGENCY_NUMBER_2, EMERGENCY_NUMBER_3, imgName1, imgName2, imgName3, imgName4, DateTime_Current_Internet, _USER_ID, IMEI);
         }
 
     }
@@ -361,15 +411,15 @@ public class AddCarDetailActivity extends AppCompatActivity {
 
                 if (_vehicleName.length() > 0) {
 
-                    if (_vehicleType.equals("Select Vehicle Type")) {
+                    if (!_vehicleType.equals("Select Vehicle Type")) {
 
-                        if (_vehicleBrand.equals("Select Vehicle Brand")) {
+                        if (!_vehicleBrand.equals("Select Vehicle Brand")) {
 
                             if (_vehicleModel.length() > 0) {
 
                                 if (_vehicleColor.length() > 0) {
 
-                                    if (_vehicleYear.equals("Select Vehicle Year")) {
+                                    if (!_vehicleYear.equals("Select Vehicle Year")) {
 
                                         if (isOnline()) {
                                             appLog.setLog("AddCarDetailActivity", "กดปุ่ม Try add car agian", USER_ID);
@@ -453,7 +503,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
                         .add("VEHICLE_TYPE_ID", params[3])
                         .add("VEHICLE_BRAND_ID", params[4])
                         .add("MODEL", params[5])
-                        .add("VEHICLE_COLOR_ID", params[6])
+                        .add("VEHICLE_COLOR", params[6])
                         .add("YEAR", params[7])
                         .add("USER_ID", params[8])
                         .add("TEL_EMERGING_1", params[9])
@@ -520,6 +570,83 @@ public class AddCarDetailActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(getApplicationContext(), "No Data!!", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Fail!!", Toast.LENGTH_LONG).show();
+            }
+
+            nDialog.dismiss();
+        }
+    }
+
+    public class FeedAsynTaskSetVehicleImage extends AsyncTask<String, Void, String> {
+
+        private ProgressDialog nDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            nDialog = new ProgressDialog(AddCarDetailActivity.this);
+            nDialog.setMessage("Loading..");
+            //nDialog.setTitle("Checking Network");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(true);
+            nDialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try{
+
+                // 1. connect server with okHttp
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .writeTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS)
+                        .build();
+
+
+                // 2. assign post data
+                RequestBody postData = new FormBody.Builder()
+                        //.add("username", "admin")
+                        //.add("password", "password")
+                        .add("Base64_IMAGE", params[1])
+                        .add("IMEI", params[2])
+                        .add("NUMBER", params[3])
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(params[0])
+                        .post(postData)
+                        .build();
+
+                // 3. transport request to server
+                okhttp3.Response response = client.newCall(request).execute();
+                String result = response.body().string();
+
+                return result;
+
+            } catch (Exception e){
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            if (s != null) {
+                //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+
+                s = s.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "");
+                s = s.replace("<string xmlns=\"http://kontin.co.th\">", "");
+                s = s.replace("</string>", "");
+
+                if (s.contains("Success")) {
+
                 }
 
             } else {

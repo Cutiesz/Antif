@@ -93,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     if (isOnline()) {
                                         appLog.setLog("SignUpActivity", "กดปุ่ม Sign up (" + _email + ")", "");
 
-                                        new FeedAsynTask().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/L_REGISTER", "LYd162fYt", _email, _password, "Android", "EM", mylat.toString(), mylng.toString());
+                                        new FeedAsynTask().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_REGISTER", "LYd162fYt", _email, _password, "Android", "EM", mylat.toString(), mylng.toString());
                                     } else {
                                         txtSignUpFail.setVisibility(View.VISIBLE);
                                         txtSignUpFail.setText("No Internet signal, Please try agian!!");

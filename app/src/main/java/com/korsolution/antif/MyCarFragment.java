@@ -78,6 +78,7 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
     private TextView txtStatus;
     private ImageView imgCutEngine;
     private ImageView imgAuthen;
+    private RelativeLayout layoutNoCar;
 
     private AccountDBClass AccountDB;
     private VehicleDBClass VehicleDB;
@@ -242,6 +243,8 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                 dialogAlertAuthen();
             }
         });
+
+        layoutNoCar  = (RelativeLayout) view.findViewById(R.id.layoutNoCar);
     }
 
     private void MapNavigation(String lat, String lng) {
@@ -679,12 +682,18 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                         }
                     }
 
-                    // Zoom Center All Lat Lng
-                    LatLngBounds bounds = builder.build();
-                    int padding = 0 + 100; // offset from edges of the map in pixels
-                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                    //mMap.moveCamera(cu);
-                    mMap.animateCamera(cu);
+                    try {
+
+                        // Zoom Center All Lat Lng
+                        LatLngBounds bounds = builder.build();
+                        int padding = 0 + 100; // offset from edges of the map in pixels
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                        //mMap.moveCamera(cu);
+                        mMap.animateCamera(cu);
+
+                    } catch (Exception e) {
+
+                    }
 
                     // Select first car
                     String[][] arrData = VehicleDB.SelectAll();
@@ -746,6 +755,10 @@ public class MyCarFragment extends Fragment implements OnMapReadyCallback {
                         SIM = _SIM;
 
                         selectCar(vehicleName);
+
+                        layoutNoCar.setVisibility(View.GONE);
+                    } else {
+                        layoutNoCar.setVisibility(View.VISIBLE);
                     }
 
 

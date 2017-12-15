@@ -1274,6 +1274,12 @@ public class VehicleSettingActivity extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
+            //Toast.makeText(getApplicationContext(), contentUri.toString(), Toast.LENGTH_SHORT).show();
+            contentUri = Uri.parse(String.valueOf(contentUri).replace("external_files", "storage/emulated/0"));
+            //Toast.makeText(getApplicationContext(), contentUri.toString(), Toast.LENGTH_SHORT).show();
+        }
+
         // get file name
         String path = f.getAbsolutePath();
         String filename = path.substring(path.lastIndexOf("/") + 1);

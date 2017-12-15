@@ -28,6 +28,10 @@ public class AddCarNumberActivity extends AppCompatActivity {
     private String URI_CAR_BACK;
     private String URI_CAR_LEFT;
     private String URI_CAR_RIGHT;
+    private String NAME_CAR_FRONT;
+    private String NAME_CAR_BACK;
+    private String NAME_CAR_LEFT;
+    private String NAME_CAR_RIGHT;
 
     private StepsView mStepsView;
 
@@ -50,6 +54,10 @@ public class AddCarNumberActivity extends AppCompatActivity {
         URI_CAR_BACK = getIntent().getStringExtra("URI_CAR_BACK");
         URI_CAR_LEFT = getIntent().getStringExtra("URI_CAR_LEFT");
         URI_CAR_RIGHT = getIntent().getStringExtra("URI_CAR_RIGHT");
+        NAME_CAR_FRONT = getIntent().getStringExtra("NAME_CAR_FRONT");
+        NAME_CAR_BACK = getIntent().getStringExtra("NAME_CAR_BACK");
+        NAME_CAR_LEFT = getIntent().getStringExtra("NAME_CAR_LEFT");
+        NAME_CAR_RIGHT = getIntent().getStringExtra("NAME_CAR_RIGHT");
 
         appLog = new AppLogClass(this);
 
@@ -133,6 +141,10 @@ public class AddCarNumberActivity extends AppCompatActivity {
                     intent.putExtra("URI_CAR_BACK", URI_CAR_BACK);
                     intent.putExtra("URI_CAR_LEFT", URI_CAR_LEFT);
                     intent.putExtra("URI_CAR_RIGHT", URI_CAR_RIGHT);
+                    intent.putExtra("NAME_CAR_FRONT", NAME_CAR_FRONT);
+                    intent.putExtra("NAME_CAR_BACK", NAME_CAR_BACK);
+                    intent.putExtra("NAME_CAR_LEFT", NAME_CAR_LEFT);
+                    intent.putExtra("NAME_CAR_RIGHT", NAME_CAR_RIGHT);
                     intent.putExtra("EMERGENCY_NUMBER_1", _emergencyNumber1);
                     intent.putExtra("EMERGENCY_NUMBER_2", _emergencyNumber2);
                     intent.putExtra("EMERGENCY_NUMBER_3", _emergencyNumber3);

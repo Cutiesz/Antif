@@ -19,10 +19,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -97,8 +99,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     private Double mylat;
     private Double mylng;
 
-    private String latAddress;
-    private String lngAddress;
+    private String latAddress = "0.0";
+    private String lngAddress = "0.0";
 
     private static final int ACTION_TAKE_PHOTO_B = 1;
     private String mCurrentPhotoPath;
@@ -109,7 +111,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     private final static int GALLERY_IMAGE_ACTIVITY_REQUEST_CODE = 101;
     protected static Uri photoUri = null;
 
-    private String pathProfileImage;
+    private String pathProfileImage = "";
 
     private String USER_ID;
 
@@ -255,8 +257,12 @@ public class ProfileEditActivity extends AppCompatActivity {
                 edtPostcode.setText(POSTCODE);
             }
 
-            latAddress = LATITUDE_ADDRESS;
-            lngAddress = LONGITUDE_ADDRESS;
+            if (!LATITUDE_ADDRESS.equals("null")) {
+                latAddress = LATITUDE_ADDRESS;
+            }
+            if (!LONGITUDE_ADDRESS.equals("null")) {
+                lngAddress = LONGITUDE_ADDRESS;
+            }
 
             // set Profile Image
             Glide.with(this)
@@ -566,6 +572,38 @@ public class ProfileEditActivity extends AppCompatActivity {
         mDialog.show();
     }
 
+    private void loginForUpdateProfileData() {
+
+        String[][] arrData = AccountDB.SelectAllAccount();
+        if (arrData != null) {
+            String USER_ID = arrData[0][1].toString();
+            String PERMISSION_ID = arrData[0][2].toString();
+            String EMAIL = arrData[0][3].toString();
+            String PASSWORD = arrData[0][4].toString();
+            String DISPLAY_NAME = arrData[0][5].toString();
+            String FIRST_NAME = arrData[0][6].toString();
+            String LAST_NAME = arrData[0][7].toString();
+            String TEL = arrData[0][8].toString();
+            String LOGIN_TYPE = arrData[0][9].toString();
+            String ID_CARD = arrData[0][10].toString();
+            String LICENSE_EXP = arrData[0][11].toString();
+            String USER_PICTURE = arrData[0][12].toString();
+            String ADDRESS = arrData[0][13].toString();
+            String District_ID = arrData[0][14].toString();
+            String District_Name = arrData[0][15].toString();
+            String Amphur_ID = arrData[0][16].toString();
+            String Amphur_Name = arrData[0][17].toString();
+            String Province_ID = arrData[0][18].toString();
+            String Province_Name = arrData[0][19].toString();
+            String POSTCODE = arrData[0][20].toString();
+            String LATITUDE_ADDRESS = arrData[0][21].toString();
+            String LONGITUDE_ADDRESS = arrData[0][22].toString();
+
+            new FeedAsynTaskLogin().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/GET_LOGIN", "LYd162fYt", EMAIL, PASSWORD, LOGIN_TYPE);
+        }
+
+    }
+
     public class FeedAsynTask extends AsyncTask<String, Void, String> {
 
         private ProgressDialog nDialog;
@@ -655,20 +693,28 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                             String STATUS = String.valueOf(feedDataList.get(i).getString("STATUS"));
 
-                            /*if (STATUS.equals("Success")) {
+                            if (STATUS.equals("Success")) {
 
                                 appLog.setLog("ProfileEditActivity", "Upload Profile Data Success", USER_ID);
 
-                                uploadProfileImg();
+                                // log in for update profile data
+                                loginForUpdateProfileData();
+
+                                //uploadProfileImg();
+                                if (pathProfileImage.equals("")) {
+                                    uploadProfileImg();
+                                } else {
+                                    dialogAlertEditProfileSuccess();
+                                }
 
                             } else {
                                 appLog.setLog("ProfileEditActivity", "Upload Profile Image Fail", USER_ID);
 
                                 dialogAlertAddCarFail();
-                            }*/
+                            }
 
-                            appLog.setLog("ProfileEditActivity", "Upload Profile Data Success", USER_ID);
-                            uploadProfileImg();
+                            //appLog.setLog("ProfileEditActivity", "Upload Profile Data Success", USER_ID);
+                            //uploadProfileImg();
 
                         } catch (Exception e) {
 
@@ -988,7 +1034,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                                 String[] arrSpinner;
                                 arrSpinner = new String[arrData.length+1];
 
-                                arrSpinner[0] = "Select Amphur";
+                                //arrSpinner[0] = "Select Amphur";
+                                arrSpinner[0] = amphoeName;
 
                                 for (int j = 0; j < arrData.length; j++) {
                                     arrSpinner[j+1] = arrData[j].toString();
@@ -1101,7 +1148,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                                 String[] arrSpinner;
                                 arrSpinner = new String[arrData.length+1];
 
-                                arrSpinner[0] = "Select District";
+                                //arrSpinner[0] = "Select District";
+                                arrSpinner[0] = districtName;
 
                                 for (int j = 0; j < arrData.length; j++) {
                                     arrSpinner[j+1] = arrData[j].toString();
@@ -1132,6 +1180,135 @@ public class ProfileEditActivity extends AppCompatActivity {
         }
     }
 
+    public class FeedAsynTaskLogin extends AsyncTask<String, Void, String> {
+
+        private ProgressDialog nDialog;
+
+        String _type;
+        String _pass;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            nDialog = new ProgressDialog(ProfileEditActivity.this);
+            nDialog.setMessage("Loading..");
+            //nDialog.setTitle("Checking Network");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(true);
+            nDialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try{
+
+                _type = params[4];
+                _pass = params[3];
+
+                // 1. connect server with okHttp
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .writeTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS)
+                        .build();
+
+
+                // 2. assign post data
+                RequestBody postData = new FormBody.Builder()
+                        //.add("username", "admin")
+                        //.add("password", "password")
+                        .add("CODE_API", params[1])
+                        .add("EMAIL", params[2])
+                        .add("PASSWORD", params[3])
+                        .add("LOGIN_TYPE", params[4])
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(params[0])
+                        .post(postData)
+                        .build();
+
+                // 3. transport request to server
+                okhttp3.Response response = client.newCall(request).execute();
+                String result = response.body().string();
+
+                return result;
+
+            } catch (Exception e){
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            if (s != null) {
+                //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                s = s.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "");
+                s = s.replace("<string xmlns=\"http://kontin.co.th\">", "");
+                s = s.replace("</string>", "");
+
+                AccountDB.DeleteAccount();
+
+                feedDataList = CuteFeedJsonUtil.feed(s);
+                if (feedDataList != null) {
+                    for (int i = 0; i <= feedDataList.size(); i++) {
+                        try {
+
+                            String strUSER_ID = String.valueOf(feedDataList.get(i).getString("USER_ID"));
+                            String strPERMISSION_ID = String.valueOf(feedDataList.get(i).getString("PERMISSION_ID"));
+                            String strEMAIL = String.valueOf(feedDataList.get(i).getString("EMAIL"));
+                            String strPASSWORD = String.valueOf(feedDataList.get(i).getString("PASSWORD"));
+                            String strDISPLAY_NAME = String.valueOf(feedDataList.get(i).getString("DISPLAY_NAME"));
+                            String strFIRST_NAME = String.valueOf(feedDataList.get(i).getString("FIRST_NAME"));
+                            String strLAST_NAME = String.valueOf(feedDataList.get(i).getString("LAST_NAME"));
+                            String strTEL = String.valueOf(feedDataList.get(i).getString("TEL"));
+                            String strLOGIN_TYPE = String.valueOf(feedDataList.get(i).getString("LOGIN_TYPE"));
+                            String strID_CARD = String.valueOf(feedDataList.get(i).getString("ID_CARD"));
+                            String strLICENSE_EXP = String.valueOf(feedDataList.get(i).getString("LICENSE_EXP"));
+                            String strUSER_PICTURE = String.valueOf(feedDataList.get(i).getString("USER_PICTURE"));
+                            String strADDRESS = String.valueOf(feedDataList.get(i).getString("ADDRESS"));
+                            String District_ID = String.valueOf(feedDataList.get(i).getString("District_ID"));
+                            String strDistrict_Name = String.valueOf(feedDataList.get(i).getString("District_Name"));
+                            String strAmphur_ID = String.valueOf(feedDataList.get(i).getString("Amphur_ID"));
+                            String strAmphur_Name = String.valueOf(feedDataList.get(i).getString("Amphur_Name"));
+                            String strProvince_ID = String.valueOf(feedDataList.get(i).getString("Province_ID"));
+                            String strProvince_Name = String.valueOf(feedDataList.get(i).getString("Province_Name"));
+                            String strPOSTCODE = String.valueOf(feedDataList.get(i).getString("POSTCODE"));
+                            String strLATITUDE_ADDRESS = String.valueOf(feedDataList.get(i).getString("LATITUDE_ADDRESS"));
+                            String strLONGITUDE_ADDRESS = String.valueOf(feedDataList.get(i).getString("LONGITUDE_ADDRESS"));
+
+                            AccountDB.InsertAccount(strUSER_ID, strPERMISSION_ID, strEMAIL, strPASSWORD, strDISPLAY_NAME,
+                                    strFIRST_NAME, strLAST_NAME, strTEL, strLOGIN_TYPE, strID_CARD, strLICENSE_EXP, strUSER_PICTURE,
+                                    strADDRESS, District_ID, strDistrict_Name, strAmphur_ID, strAmphur_Name,
+                                    strProvince_ID, strProvince_Name, strPOSTCODE, strLATITUDE_ADDRESS, strLONGITUDE_ADDRESS);
+
+                            appLog.setLog("LoginActivity", "Log in (" + _type + ")", strUSER_ID);
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+
+                } else {
+                    //Toast.makeText(getApplicationContext(), "No Data!!", Toast.LENGTH_LONG).show();
+                    //txtLogInFail.setVisibility(View.INVISIBLE);
+                    //txtLogInFail.setText("Log in fail!!");
+                }
+
+            } else {
+                //Toast.makeText(getApplicationContext(), "Fail!!", Toast.LENGTH_LONG).show();
+                //txtLogInFail.setVisibility(View.INVISIBLE);
+                //txtLogInFail.setText("Log in fail!!");
+            }
+
+            nDialog.dismiss();
+        }
+    }
+
     private void dispatchTakePictureIntent(int actionCode) {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -1141,9 +1318,25 @@ public class ProfileEditActivity extends AppCompatActivity {
                 File f = null;
 
                 try {
-                    f = setUpPhotoFile();
-                    mCurrentPhotoPath = f.getAbsolutePath();
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    //f = setUpPhotoFile();
+                    //mCurrentPhotoPath = f.getAbsolutePath();
+                    //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
+                        // Do something for lollipop and above versions
+
+                        //Uri photoURI = Uri.fromFile( f);
+                        Uri photoURI = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", createImageFile());
+                        mCurrentPhotoPath = photoURI.getPath();
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    } else{
+                        // do something for phones running an SDK before lollipop
+
+                        f = setUpPhotoFile();
+                        mCurrentPhotoPath = f.getAbsolutePath();
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     f = null;
@@ -1219,6 +1412,12 @@ public class ProfileEditActivity extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
+            //Toast.makeText(getApplicationContext(), contentUri.toString(), Toast.LENGTH_SHORT).show();
+            contentUri = Uri.parse(String.valueOf(contentUri).replace("external_files", "storage/emulated/0"));
+            //Toast.makeText(getApplicationContext(), contentUri.toString(), Toast.LENGTH_SHORT).show();
+        }
+
         // get file name
         String path = f.getAbsolutePath();
         String filename = path.substring(path.lastIndexOf("/") + 1);
@@ -1230,6 +1429,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(new File(contentUri.getPath()))
                 .into(imgProfile);
+
+
     }
 
     @Override

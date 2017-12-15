@@ -111,7 +111,6 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/round"
                 android:hint="Enter Vehicle Color"
-                android:inputType="number"
                 android:maxLength="4"
                 android:padding="5dp"
                 android:singleLine="true" />
