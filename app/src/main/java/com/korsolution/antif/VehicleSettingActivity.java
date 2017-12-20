@@ -175,10 +175,11 @@ public class VehicleSettingActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
         spnVehicleYear.setAdapter(adapter);
 
-
-        if (!vehicleYear.equals(null)) {
-            int spinnerPosition = adapter.getPosition(vehicleYear);
-            spnVehicleYear.setSelection(spinnerPosition);
+        if (vehicleYear != null) {
+            if (!vehicleYear.equals(null)) {
+                int spinnerPosition = adapter.getPosition(vehicleYear);
+                spnVehicleYear.setSelection(spinnerPosition);
+            }
         }
     }
 
@@ -246,7 +247,7 @@ public class VehicleSettingActivity extends AppCompatActivity {
 
     }
 
-    private void uoloadImage() {
+    private void uploadImage() {
 
         uploadImageNo = 0;
 
@@ -1610,7 +1611,22 @@ public class VehicleSettingActivity extends AppCompatActivity {
                                 appLog.setLog("AddCarDetailActivity", "Add Car Success", USER_ID);
 
                                 //dialogAlertAddCarSuccess();
-                                uoloadImage();
+                                //uploadImage();
+
+                                String[][] arrData = PicturePathDB.SelectAll();
+                                if (arrData != null) {
+                                    String _font = arrData[0][1].toString();
+                                    String _back = arrData[0][2].toString();
+                                    String _left = arrData[0][3].toString();
+                                    String _right = arrData[0][4].toString();
+
+                                    if (!_font.equals("0") || !_back.equals("0") || !_left.equals("0") || !_right.equals("0")) {
+                                        uploadImage();
+                                    } else {
+                                        dialogAlertAddCarSuccess();
+                                    }
+                                }
+
                             } else {
                                 appLog.setLog("AddCarDetailActivity", "Add Car Fail", USER_ID);
 

@@ -228,6 +228,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                                 appLog.setLog("AddCarActivity", "Scan Barcode " + _barcode + " (IMEI " + strIMEI + ") success.", USER_ID);
 
                                 Intent intent = new Intent(getApplicationContext(), AddCarPictureActivity.class);
+                                //Intent intent = new Intent(getApplicationContext(), VehicleSettingActivity.class);
                                 intent.putExtra("USER_ID", USER_ID);
                                 intent.putExtra("IMEI", strIMEI);
                                 startActivity(intent);
