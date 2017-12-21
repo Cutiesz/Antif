@@ -223,7 +223,7 @@ public class VehicleSettingActivity extends AppCompatActivity {
                                 String imgName4 = IMEI + "_4.jpg";
 
                                 new FeedAsynTaskSetVehicle().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_VEHICLE", "LYd162fYt",
-                                        vehicleLicense, _vehicleTypeID, _vehicleBrandID, vehicleGeneration, vehicleColor, vehcleYear, USER_ID,
+                                        vehicleLicense, _vehicleTypeID, /*_vehicleBrandID*/vehicleBrand, vehicleGeneration, vehicleColor, vehcleYear, USER_ID,
                                         TEL_EMERGING_1, TEL_EMERGING_2, TEL_EMERGING_3, imgName1, imgName2, imgName3, imgName4, DateTime_Current_Internet, USER_ID, IMEI);
 
                             } else {

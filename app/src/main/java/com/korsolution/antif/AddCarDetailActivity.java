@@ -367,7 +367,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
             String imgName4 = IMEI + "_4.jpg";
 
             new FeedAsynTaskSetVehicle().execute("http://202.183.192.165/ws_antit/WebServiceANTIT.asmx/SET_VEHICLE", "LYd162fYt",
-                    _vehicleName, _vehicleTypeID, _vehicleBrandID, _vehicleModel, _vehicleColor, _vehicleYear, _USER_ID,
+                    _vehicleName, _vehicleTypeID, /*_vehicleBrandID*/_vehicleBrand, _vehicleModel, _vehicleColor, _vehicleYear, _USER_ID,
                     EMERGENCY_NUMBER_1, EMERGENCY_NUMBER_2, EMERGENCY_NUMBER_3, imgName1, imgName2, imgName3, imgName4, DateTime_Current_Internet, _USER_ID, IMEI);
         }
 
